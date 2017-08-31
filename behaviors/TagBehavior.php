@@ -19,6 +19,7 @@ use yii\db\BaseActiveRecord;
  *         ],
  *     ];
  * }
+ * 
  * ```
  *
  * Class ConstArrayBehavior
