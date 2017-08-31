@@ -1,6 +1,6 @@
 <?php
 
-namespace bttree\smyii2tag\controllers;
+namespace bttree\smytag\controllers;
 
 use Yii;
 use bttree\smyii2tag\models\Tag;

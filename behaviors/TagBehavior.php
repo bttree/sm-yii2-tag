@@ -1,25 +1,39 @@
 <?php
 
-namespace bttree\smyii2tag\behaviors;
+namespace bttree\smytag\behaviors;
 
-use bttree\smyii2tag\models\Tag;
+use bttree\smytag\models\Tag;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  *
  * ```php
  *
+ * public $tags = [];
+ *
+ * public function rules()
+ * {
+ *  return [
+ *    ...
+ *      [['tags'], 'safe']
+ *    ...
+ *   ],
+ *   ];
+ * }
+ *
  * public function behaviors()
  * {
  *     return [
- *         [
- *             'class' => TagBehavior::className(),
+ *         'smytag' => [
+ *             'class'     => TagBehavior::className(),
+ *             'attribute' => 'tags',
  *         ],
  *     ];
  * }
- * 
+ *
  * ```
  *
  * Class ConstArrayBehavior
@@ -27,6 +41,11 @@ use yii\db\BaseActiveRecord;
  */
 class TagBehavior extends AttributeBehavior
 {
+    /**
+     * @var string
+     */
+    public $attribute;
+
     /**
      * @var string
      */
@@ -38,20 +57,19 @@ class TagBehavior extends AttributeBehavior
     protected $ownerId;
 
     /**
-     * @inheritdoc
+     * @param \yii\base\Component $owner
      */
-    public function init()
+    public function attach($owner)
     {
+        parent::attach($owner);
+
         $this->ownerClass = get_class($this->owner);
         $this->ownerId    = $this->owner->id;
-
-        parent::init();
-
     }
 
     public function updateTags()
     {
-        $tags = $this->owner->tags;
+        $tags = $this->owner->{$this->attribute};
 
         if (is_array($tags) && !empty($tags)) {
             array_map('mb_strtolower', $tags);
@@ -78,10 +96,8 @@ class TagBehavior extends AttributeBehavior
                 $tagIds[] = $tag->id;
             }
 
-            Tag::deleteAll([
-                               ['NOT IN', 'id', $tagIds],
-                               $attributes
-                           ]);
+
+            Tag::deleteAll(['NOT IN', 'id', $tagIds]);
         }
     }
 
@@ -99,13 +115,23 @@ class TagBehavior extends AttributeBehavior
     }
 
     /**
+     * @return Tag[]
+     */
+    public function getTagsArray()
+    {
+        $tags = $this->getTags();
+
+        return ArrayHelper::map($tags, 'title', 'title');
+    }
+
+    /**
      * @return array
      */
     public function events()
     {
         return array_merge([
-                               ActiveRecord::EVENT_BEFORE_INSERT => ['updateTags'],
-                               ActiveRecord::EVENT_BEFORE_UPDATE => ['updateTags'],
+                               ActiveRecord::EVENT_BEFORE_INSERT => 'updateTags',
+                               ActiveRecord::EVENT_BEFORE_UPDATE => 'updateTags',
                            ],
                            parent::events());
     }
