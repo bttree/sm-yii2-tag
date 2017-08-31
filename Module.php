@@ -25,7 +25,7 @@ class Module extends \yii\base\Module
             Yii::$app->i18n->translations['smy.tag'] = [
                 'class'          => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'ru',
-                'basePath'       => '@common/modules/bttree/smytag/messages'
+                'basePath'       => '@bttree/smytag/messages'
             ];
         }
     }
