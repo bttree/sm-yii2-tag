@@ -49,12 +49,12 @@ class TagBehavior extends AttributeBehavior
     /**
      * @var string
      */
-    protected $ownerClass;
+    public $ownerClass;
 
     /**
      * @var integer
      */
-    protected $ownerId;
+    public $ownerId;
 
     /**
      * @param \yii\base\Component $owner

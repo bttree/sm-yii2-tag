@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model bttree\smyii2tag\models\Tag */
+/* @var $model bttree\smytag\models\Tag */
 
 $this->title                   = Yii::t('smy.tag', 'Create Tag');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('smy.tag', 'Tags'), 'url' => ['index']];

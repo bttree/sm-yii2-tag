@@ -3,7 +3,7 @@
 namespace bttree\smytag\controllers;
 
 use Yii;
-use bttree\smyii2tag\models\Tag;
+use bttree\smytag\models\Tag;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;

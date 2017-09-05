@@ -45,7 +45,7 @@ class Tag extends ActiveRecord
     {
         return [
             'id'          => Yii::t('smy.tag', 'ID'),
-            'model_class' => Yii::t('smy.tag', 'Model'),
+            'model_class' => Yii::t('smy.tag', 'Model Class'),
             'model_id'    => Yii::t('smy.tag', 'Model ID'),
             'title'       => Yii::t('smy.tag', 'Tag'),
         ];
