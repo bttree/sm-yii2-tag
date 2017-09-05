@@ -130,8 +130,8 @@ class TagBehavior extends AttributeBehavior
     public function events()
     {
         return array_merge([
-                               ActiveRecord::EVENT_BEFORE_INSERT => 'updateTags',
-                               ActiveRecord::EVENT_BEFORE_UPDATE => 'updateTags',
+                               ActiveRecord::EVENT_AFTER_INSERT => 'updateTags',
+                               ActiveRecord::EVENT_AFTER_UPDATE => 'updateTags',
                            ],
                            parent::events());
     }
